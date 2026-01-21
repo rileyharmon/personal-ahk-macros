@@ -16,18 +16,21 @@ RShift & Down::{
 ^!Esc::{
     Run("rundll32.exe powrprof.dll,SetSuspendState 0,1,0")
 }
-
+; Mute Toggle
 RShift & Left::SoundSetMute(-1)
+
+; Ins Disable
 Insert::Return
 Ins::Return
 
+; Ctrl + Alt + Num toggle for safety
 NumLock::Return
 ^!NumLock::SetNumLockState(!GetKeyState("NumLock", "T"))
 
+; Ctrl + Backspace delete
 ^Backspace::Send("{Delete}")
 
-
-
+; Monitors off
 ^!F12::{
     KeyWait("Ctrl")
     KeyWait("Alt")
