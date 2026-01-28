@@ -14,26 +14,37 @@ RShift & Down::{
 
 ; Ctrl + Alt + Esc = Sleep
 ^!Esc::{
-    Run("rundll32.exe powrprof.dll,SetSuspendState 0,1,0")
+    Run(
+        'powershell.exe -NoProfile -WindowStyle Hidden -Command "Start-Sleep -Seconds 1; Add-Type -Assembly System.Windows.Forms; [System.Windows.Forms.Application]::SetSuspendState([System.Windows.Forms.PowerState]::Suspend, $false, $false)"'
+    )
 }
-; Mute Toggle
-RShift & Left::SoundSetMute(-1)
 
-; Ins Disable
+
+RShift & Left::SoundSetMute(-1)
 Insert::Return
 Ins::Return
 
-; Ctrl + Alt + Num toggle for safety
 NumLock::Return
 ^!NumLock::SetNumLockState(!GetKeyState("NumLock", "T"))
 
-; Ctrl + Backspace delete
 ^Backspace::Send("{Delete}")
 
-; Monitors off
+
+
 ^!F12::{
     KeyWait("Ctrl")
     KeyWait("Alt")
     Sleep(100)
     SendMessage(0x112, 0xF170, 2, , "Program Manager")
 }
+
+
+^Space::{
+    if WinExist("ahk_exe Everything.exe") {
+        WinActivate
+    } else {
+        Run("C:\Program Files\Everything\Everything.exe")
+    }
+}
+
+
